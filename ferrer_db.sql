@@ -1,45 +1,75 @@
-CREATE TABLE `department` (
-  `depto` char(3) NOT NULL,
-  `deptname` varchar(40) NOT NULL,
-  `mgrno` char(6) DEFAULT NULL,
-  `admrdept` char(3) NOT NULL,
-  `location` char(5) DEFAULT NULL
+CREATE TABLE DEPARTMENT (
+    deptno CHAR(3) NOT NULL PRIMARY KEY,
+    deptname VARCHAR(40) NOT NULL,
+    mgrno CHAR(6),
+    admrdept CHAR(3) NOT NULL,
+    location VARCHAR(50)
 );
 
-CREATE TABLE `emp_act` (
-  `empno` char(6) NOT NULL,
-  `projno` char(6) NOT NULL,
-  `actno` smallint NOT NULL,
-  `emptime` decimal(5,2) DEFAULT NULL,
-  `emstdate` date DEFAULT NULL,
-  `emendate` date DEFAULT NULL
+CREATE TABLE EMPLOYEE (
+    empno CHAR(6) NOT NULL PRIMARY KEY,
+    firstname VARCHAR(30) NOT NULL,
+    lastname VARCHAR(50) NOT NULL,
+    midinit CHAR(1),
+    workdept CHAR(3) NOT NULL,
+    phoneno CHAR(11),
+    hiredate DATE,
+    job CHAR(15),
+    edlevel SMALLINT CHECK(edlevel > 10 AND edlevel < 50),
+    sex CHAR(1) CHECK(sex = 'M' OR sex = 'F'),
+    birthdate DATE,
+    salary DECIMAL(10,2) CHECK(salary > 0.00),
+    bonus DECIMAL(8,2) CHECK(salary >= 0.00),
+    comm DECIMAL(8,2) CHECK(comm >= 0.00)
 );
 
-CREATE TABLE `employee` (
-  `empno` char(6) NOT NULL,
-  `firstname` varchar(20) NOT NULL,
-  `midinit` char(1) NOT NULL,
-  `lastname` varchar(15) NOT NULL,
-  `workdept` char(3) DEFAULT NULL,
-  `phoneno` char(11) DEFAULT NULL,
-  `hiredate` date DEFAULT NULL,
-  `job` char(10) DEFAULT NULL,
-  `edlevel` smallint DEFAULT NULL,
-  `gender` char(1) DEFAULT NULL,
-  `birthdate` date DEFAULT NULL,
-  `salary` decimal(10,2) DEFAULT NULL,
-  `bonus` decimal(9,2) DEFAULT NULL,
-  `comm` decimal(9,2) DEFAULT NULL,
-  CONSTRAINT `employee_chk_1` CHECK ((`gender` in ('M','F')))
+CREATE TABLE PROJECT (
+    projno CHAR(6) NOT NULL PRIMARY KEY,
+    projname VARCHAR(30) NOT NULL,
+    deptno CHAR(3) NOT NULL,
+    respemp CHAR(6) NOT NULL,
+    prstaff DECIMAL(5,2),
+    prstdate DATE,
+    prendate DATE,
+    majproj CHAR(6)
 );
 
-CREATE TABLE `project` (
-  `projno` char(6) NOT NULL,
-  `projname` varchar(30) NOT NULL,
-  `deptno` char(3) NOT NULL,
-  `respemp` char(3) NOT NULL,
-  `prstaff` decimal(5,2) DEFAULT NULL,
-  `prstdate` date DEFAULT NULL,
-  `prendate` date DEFAULT NULL,
-  `majproj` char(6) DEFAULT NULL
+CREATE TABLE EMP_ACT (
+    empno CHAR(6) NOT NULL,
+    projno CHAR(6) NOT NULL,
+    actno SMALLINT NOT NULL,
+    emptime DECIMAL(5,2),
+    emstdate DATE,
+    emendate DATE
 );
+
+CREATE TABLE CUSTOMER (
+    custno INT NOT NULL PRIMARY KEY,
+    custname VARCHAR(40) NOT NULL,
+    custaddr VARCHAR(50),
+    contactno CHAR(11),
+    company VARCHAR(50),
+    cusproj CHAR(6) NOT NULL
+);
+
+ALTER TABLE DEPARTMENT 
+    ADD FOREIGN KEY(mgrno) REFERENCES EMPLOYEE(empno);
+
+ALTER TABLE EMPLOYEE
+    ADD FOREIGN KEY(workdept) REFERENCES DEPARTMENT(deptno);
+
+ALTER TABLE DEPARTMENT 
+    ADD FOREIGN KEY(admrdept) REFERENCES DEPARTMENT(deptno);
+
+ALTER TABLE PROJECT
+    ADD FOREIGN KEY(respemp) REFERENCES EMPLOYEE(empno);
+
+ALTER TABLE PROJECT
+    ADD FOREIGN KEY(deptno) REFERENCES DEPARTMENT(deptno);
+
+ALTER TABLE EMP_ACT
+    ADD FOREIGN KEY(empno) REFERENCES EMPLOYEE(empno);
+
+ALTER TABLE EMP_ACT
+    ADD FOREIGN KEY(projno) REFERENCES PROJECT(projno);
+
