@@ -16,7 +16,7 @@ CREATE TABLE EMPLOYEE (
     hiredate DATE,
     job CHAR(15),
     edlevel SMALLINT CHECK(edlevel > 10 AND edlevel < 50),
-    sex CHAR(1) CHECK(sex = 'M' OR sex = 'F'),
+    sex CHAR(1) CHECK(sex IN('M','m','F','f')),
     birthdate DATE,
     salary DECIMAL(10,2) CHECK(salary > 0.00),
     bonus DECIMAL(8,2) CHECK(salary >= 0.00),
@@ -124,4 +124,5 @@ INSERT INTO DEPARTMENT(deptno,deptname,mgrno,admrdept,location) VALUES
     ('000300','PHILIP','X','SMITH','E11','2095','2006-06-19','OPERATOR'),
     ('000310','MAUDE','F','SETRIGHT','E11','3332','1994-09-12','OPERATOR'),
     ('000320','RAMLAL','V','MEHTA','E21','9990','1995-07-07','FIELDREP'),
-    ()
+    ('000330','WING','','LEE','E21','2103','2006-02-23','FIELDREP'),
+    
