@@ -117,7 +117,7 @@ INSERT INTO EMPLOYEE (empno, firstname, midinit, lastname, workdept, phoneno, hi
     ('200330', 'HELENA',   NULL, 'WONG',      'E21', '2103', '2006-02-23', 'FIELDREP',  14, 'F', '1971-07-18',  35370.00,  500.00, 2030.00),
     ('200340', 'ROY',      'R',  'ALONZO',    'E21', '5698', '1997-07-05', 'FIELDREP',  16, 'M', '1956-05-17',  31840.00,  500.00, 1907.00);
 
-INSERT INTO PROJECT VALUES (projno, projname, deptno, respemp, prstaff, prstdate, prendate, majproj)
+INSERT INTO PROJECT (projno, projname, deptno, respemp, prstaff, prstdate, prendate, majproj) VALUES
 	('AD3100', 'ADMIN SERVICES',           'D01', '000010', 6.50, '2002-01-01', '2003-02-01', NULL),
 	('AD3110', 'GENERAL ADMIN SYSTEMS',    'D21', '000070', 6.00, '2002-01-01', '2003-02-01', 'AD3100'),
 	('AD3111', 'PAYROLL PROGRAMMING',      'D21', '000230', 2.00, '2002-01-01', '2003-02-01', 'AD3110'),
