@@ -1,0 +1,4 @@
+SELECT	deptno,	deptname, COALESCE(mgrno, 'UNKNOWN MANAGER') AS 'MGRNO'
+FROM	DEPARTMENT
+WHERE	mgrno IS NULL
+ORDER BY deptno;
